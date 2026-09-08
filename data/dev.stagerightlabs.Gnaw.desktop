@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Wallpaper Rotation
+Comment=Configure automatic wallpaper rotation
+Exec=gnaw ui
+Icon=preferences-desktop-wallpaper
+Terminal=false
+Categories=GTK;GNOME;Settings;DesktopSettings;
+Keywords=wallpaper;background;rotate;slideshow;
