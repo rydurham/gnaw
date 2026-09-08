@@ -1,4 +1,4 @@
-# gnaw
+# Gnome Automatic Wallpaper
 
 Automatic desktop wallpaper rotation for GNOME, written in Rust.
 
