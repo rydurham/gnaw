@@ -31,6 +31,24 @@ cargo install --path .
 This installs `gnaw` to `~/.cargo/bin`. Building without the GUI (CLI only, no GTK
 dependencies) is possible with `cargo build --release --no-default-features`.
 
+## Desktop entry
+
+To make the config window show up in your app launcher (GNOME Activities, "Wallpaper
+Rotation"), install the bundled desktop file after `gnaw` is on your `PATH`:
+
+```bash
+install -Dm644 data/dev.stagerightlabs.Gnaw.desktop ~/.local/share/applications/dev.stagerightlabs.Gnaw.desktop
+update-desktop-database ~/.local/share/applications 2>/dev/null || true
+```
+
+For a system-wide install, drop it in `/usr/share/applications/` instead (needs root).
+The entry runs `gnaw ui`, so `gnaw` must be resolvable from your session's `PATH` —
+`~/.cargo/bin` usually is. Remove it with:
+
+```bash
+rm ~/.local/share/applications/dev.stagerightlabs.Gnaw.desktop
+```
+
 ## Usage
 
 ```bash
@@ -60,6 +78,25 @@ recurse = true           # descend into subfolders
 picture_options = "zoom" # none | wallpaper | centered | scaled | stretched | zoom | spanned
 shuffle = true           # random pick; false = alphabetical by path
 ```
+
+### Fit options (`picture_options`)
+
+This is passed straight through to GNOME's `org.gnome.desktop.background picture-options`
+key, which controls how each image is mapped onto the screen:
+
+| Value       | Meaning                                                                                                                                                          |
+| ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `none`      | Don't draw the image at all — just the solid background color.                                                                                                   |
+| `wallpaper` | Tile the image at its native size, repeating it to fill the screen.                                                                                              |
+| `centered`  | Place the image at its native size in the middle of the screen; no scaling. Smaller images leave a border, larger ones are cropped.                              |
+| `scaled`    | Scale the image up or down to fit the screen while keeping its aspect ratio. The whole image is visible; mismatched aspect ratios leave bars (letter/pillarbox). |
+| `stretched` | Scale the image to fill the screen exactly, ignoring aspect ratio. Fills everything but distorts images whose proportions don't match the display.               |
+| `zoom`      | Scale the image to cover the whole screen while keeping its aspect ratio, cropping whatever overflows. No bars, no distortion. gnaw's default.                   |
+| `spanned`   | Like `zoom`, but the image is stretched across all monitors as one surface rather than repeated per-monitor.                                                     |
+
+For most photo wallpapers `zoom` is the best choice. Use `scaled` if you'd rather see
+the entire image and can live with bars, or `centered` for pixel art / images you don't
+want resampled.
 
 Rotation history lives at `~/.local/state/gnaw/history.json`.
 

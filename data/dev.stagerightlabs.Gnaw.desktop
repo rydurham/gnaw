@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
-Name=Wallpaper Rotation
+Name=GNAW Wallpaper Rotation
 Comment=Configure automatic wallpaper rotation
 Exec=gnaw ui
 Icon=preferences-desktop-wallpaper

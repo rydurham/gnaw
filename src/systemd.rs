@@ -54,6 +54,7 @@ pub fn write_units(cfg: &Config) -> Result<()> {
          Description=gnaw wallpaper rotation timer\n\n\
          [Timer]\n\
          OnBootSec=2min\n\
+         OnActiveSec={interval}min\n\
          OnUnitActiveSec={interval}min\n\
          Persistent=true\n\n\
          [Install]\n\

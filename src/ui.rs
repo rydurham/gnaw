@@ -262,9 +262,12 @@ fn build_ui(app: &adw::Application) {
             } else {
                 systemd::uninstall()
             };
-            if let Err(e) = res {
-                eprintln!("timer toggle failed: {e}");
-                sw.set_active(!want);
+            match res {
+                Ok(()) => sw.set_state(want),
+                Err(e) => {
+                    eprintln!("timer toggle failed: {e}");
+                    sw.set_state(!want);
+                }
             }
             gtk::glib::Propagation::Stop
         });
